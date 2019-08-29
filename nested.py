@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """ Module docstring: checks for proper brackets. """
-__name__ = "tamekiaNelson"
+__author__ = "tamekiaNelson"
 
 import sys
 
 open_li = ["[","(","{","(*"]
-closed_li = ["]",")","}","*)"," "]
+closed_li = ["]",")","}","*)",""]
 
 
 def valid_parentheses(string):
