@@ -19,11 +19,11 @@ def valid_parentheses(string):
             if ((len(stack) > 0) and (open_li[x] == stack[len(stack) -1])):
                 stack.pop()
             else:
-                return "No"
+                return "NO"
     if len(stack) == 0:
-        return "Yes"
+        return "YES"
     else:
-        return "No"
+        return "NO"
 
 def main():
     with open("input.txt", "r") as file_open:
