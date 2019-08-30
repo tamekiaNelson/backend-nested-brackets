@@ -1,29 +1,48 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """ Module docstring: checks for proper brackets. """
-__author__ = "tamekiaNelson"
+__author__ = "tamekiaNelson with instructor help"
 
 import sys
 
-open_li = ["[","(","{","(*"]
-closed_li = ["]",")","}","*)",""]
-
+# declare two sets of lists with matching opener/closer tokens
+# They must be lined up by index, because we will cross-index between them.
+open_li = ["[", "(", "{", "(*", "<"]
+closed_li = ["]", ")", "}", "*)", ">"]
 
 def valid_parentheses(string):
     stack = []
-    for i in string:
-        if i in open_li:
-            stack.append(i)
-        elif i in closed_li:
-            x = closed_li.index(i)
-            if ((len(stack) > 0) and (open_li[x] == stack[len(stack) -1])):
-                stack.pop()
-            else:
-                return "NO"
-    if len(stack) == 0:
+    c = 0
+    while string:
+        token = string[0]  # look at first char of string as token
+        # handle 'eyebrows'
+        if string.startswith('(*'):
+            # eyebrow opener
+            token = '(*'
+        elif string.startswith('*)'):
+            # eyebrow closer
+            token = '*)'
+        c = c+1
+
+        if token in open_li:
+            stack.append(token)
+        elif token in closed_li:
+            # we have a closing token.  Find its opener buddy
+            closer_index = closed_li.index(token)
+            matching_opener = open_li[closer_index]
+            # if things are balanced, the matching opener should be at top of stack.
+            # Test if stack is empty, or is not balanced.
+            if stack or matching_opener != stack.pop():
+                # early exit from while loop
+                return "NO " + str(c)
+        string = string[len(token):]
+
+    # Final check after while loop is done.
+    # If there is anything left on stack, that is unbalanced.    
+    if stack:
         return "YES"
     else:
-        return "NO"
+        return "NO " + str(c)
 
 def main():
     with open("input.txt", "r") as file_open:
