@@ -32,7 +32,7 @@ def valid_parentheses(string):
             matching_opener = open_li[closer_index]
             # if things are balanced, the matching opener should be at top of stack.
             # Test if stack is empty, or is not balanced.
-            if stack or matching_opener != stack.pop():
+            if len(stack) == 0 or matching_opener != stack.pop():
                 # early exit from while loop
                 return "NO " + str(c)
         string = string[len(token):]
@@ -40,9 +40,9 @@ def valid_parentheses(string):
     # Final check after while loop is done.
     # If there is anything left on stack, that is unbalanced.    
     if stack:
-        return "YES"
-    else:
         return "NO " + str(c)
+    else:
+        return "YES"
 
 def main():
     with open("input.txt", "r") as file_open:
